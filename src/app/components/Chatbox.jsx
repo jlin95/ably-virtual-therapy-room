@@ -10,10 +10,12 @@ export default function ChatBox() {
 
   const [messageText, setMessageText] = useState("");
   const [receivedMessages, setMessages] = useState([]);
+  const [username, setUsername] = useState("");
   const messageTextIsEmpty = messageText.trim().length === 0;
 
-  const { channel, ably } = useChannel("chat-demo", (message) => {
+  const { channel, ably } = useChannel("therapy-room-chat", (message) => {
     const history = receivedMessages.slice(-199);
+    console.log(history);
     setMessages([...history, message]);
   });
 
@@ -36,17 +38,51 @@ export default function ChatBox() {
     event.preventDefault();
   };
 
+  const handleUsernameKeyPress = (event) => {
+    if (event.charCode !== 13 || username.trim().length === 0) {
+      return;
+    }
+    setUsername(username);
+  };
+
+  const handleUsernameSubmission = (event) => {
+    // event.preventDefault();
+    setUsername(event.target.value);
+  };
+
+  const renderUsernameInput = () => (
+    <textarea
+      ref={(element) => {
+        inputBox = element;
+      }}
+      value={username}
+      placeholder="Type your username..."
+      onChange={(e) => setUsername(e.target.value)}
+      onKeyPress={handleUsernameKeyPress}
+    ></textarea>
+  );
+
   const messages = receivedMessages.map((message, index) => {
     const author = message.connectionId === ably.connection.id ? "me" : "other";
     return (
-      <span key={index} className={styles.message} data-author={author}>
-        {message.data}
-      </span>
+      // eslint-disable-next-line react/jsx-key
+      <div>
+        <span>
+          {author} - {username}
+        </span>
+        <span className={styles.message} data-author={author}>
+          {message.data}
+        </span>
+      </div>
     );
   });
 
   useEffect(() => {
     messageEnd.scrollIntoView({ behaviour: "smooth" });
+  });
+
+  const showUsernameInput = receivedMessages.some((message) => {
+    return message.connectionId === ably.connection.id ? "me" : "other";
   });
 
   return (
@@ -70,6 +106,8 @@ export default function ChatBox() {
           onKeyPress={handleKeyPress}
           className={styles.textarea}
         ></textarea>
+        {showUsernameInput && renderUsernameInput()}
+        {/* fix username to map to other person, use members get */}
         <button
           type="submit"
           className={styles.button}
