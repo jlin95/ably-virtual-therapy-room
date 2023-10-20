@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useChannel } from "ably/react";
+import { SpaceMember, Space } from "@ably/spaces";
 import styles from "./ChatBox.module.css";
 
 export default function ChatBox() {
@@ -20,7 +21,13 @@ export default function ChatBox() {
   });
 
   const sendChatMessage = (messageText) => {
-    channel.publish({ name: "chat-message", data: messageText });
+    channel.publish({
+      name: "chat-message",
+      data: {
+        messageText,
+        senderUsername: username,
+      },
+    });
     setMessageText("");
     inputBox.focus();
   };
@@ -64,14 +71,13 @@ export default function ChatBox() {
 
   const messages = receivedMessages.map((message, index) => {
     const author = message.connectionId === ably.connection.id ? "me" : "other";
+
     return (
       // eslint-disable-next-line react/jsx-key
       <div>
-        <span>
-          {author} - {username}
-        </span>
+        <span>{message.data.senderUsername}</span>
         <span className={styles.message} data-author={author}>
-          {message.data}
+          {message.data.messageText}
         </span>
       </div>
     );
@@ -107,7 +113,8 @@ export default function ChatBox() {
           className={styles.textarea}
         ></textarea>
         {showUsernameInput && renderUsernameInput()}
-        {/* fix username to map to other person, use members get */}
+        {/* https://ably.com/tutorials/reactjs-realtime-commenting */}
+        {/* https://examples.ably.dev/avatar-stack?space=say-promised-block and get basic symptoms checker to work - via queries from input and Spaces */}
         <button
           type="submit"
           className={styles.button}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ably/spaces": "^0.1.3",
     "ably": "^1.2.45",
     "next": "13.5.4",
     "react": "^18",
