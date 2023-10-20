@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { useChannel } from "ably/react";
-import { SpaceMember, Space } from "@ably/spaces";
 import styles from "./ChatBox.module.css";
 
 export default function ChatBox() {
@@ -16,7 +15,6 @@ export default function ChatBox() {
 
   const { channel, ably } = useChannel("therapy-room-chat", (message) => {
     const history = receivedMessages.slice(-199);
-    console.log(history);
     setMessages([...history, message]);
   });
 
@@ -37,44 +35,19 @@ export default function ChatBox() {
     sendChatMessage(messageText);
   };
 
-  const handleKeyPress = (event) => {
-    if (event.charCode !== 13 || messageTextIsEmpty) {
-      return;
-    }
-    sendChatMessage(messageText);
-    event.preventDefault();
-  };
-
   const handleUsernameKeyPress = (event) => {
     if (event.charCode !== 13 || username.trim().length === 0) {
       return;
     }
-    setUsername(username);
+    setUsername("");
+    event.preventDefault();
   };
-
-  const handleUsernameSubmission = (event) => {
-    // event.preventDefault();
-    setUsername(event.target.value);
-  };
-
-  const renderUsernameInput = () => (
-    <textarea
-      ref={(element) => {
-        inputBox = element;
-      }}
-      value={username}
-      placeholder="Type your username..."
-      onChange={(e) => setUsername(e.target.value)}
-      onKeyPress={handleUsernameKeyPress}
-    ></textarea>
-  );
 
   const messages = receivedMessages.map((message, index) => {
     const author = message.connectionId === ably.connection.id ? "me" : "other";
 
     return (
-      // eslint-disable-next-line react/jsx-key
-      <div>
+      <div key={index}>
         <span>{message.data.senderUsername}</span>
         <span className={styles.message} data-author={author}>
           {message.data.messageText}
@@ -87,10 +60,6 @@ export default function ChatBox() {
     messageEnd.scrollIntoView({ behaviour: "smooth" });
   });
 
-  const showUsernameInput = receivedMessages.some((message) => {
-    return message.connectionId === ably.connection.id ? "me" : "other";
-  });
-
   return (
     <div className={styles.chatHolder}>
       <div className={styles.chatText}>
@@ -101,6 +70,14 @@ export default function ChatBox() {
           }}
         ></div>
       </div>
+      <textarea
+        ref={(element) => {
+          inputBox = element;
+        }}
+        placeholder="Type your username..."
+        onChange={(e) => setUsername(e.target.value)}
+        onKeyPress={handleUsernameKeyPress}
+      ></textarea>
       <form onSubmit={handleFormSubmission} className={styles.form}>
         <textarea
           ref={(element) => {
@@ -109,12 +86,8 @@ export default function ChatBox() {
           value={messageText}
           placeholder="Type a message..."
           onChange={(e) => setMessageText(e.target.value)}
-          onKeyPress={handleKeyPress}
           className={styles.textarea}
         ></textarea>
-        {showUsernameInput && renderUsernameInput()}
-        {/* https://ably.com/tutorials/reactjs-realtime-commenting */}
-        {/* https://examples.ably.dev/avatar-stack?space=say-promised-block and get basic symptoms checker to work - via queries from input and Spaces */}
         <button
           type="submit"
           className={styles.button}

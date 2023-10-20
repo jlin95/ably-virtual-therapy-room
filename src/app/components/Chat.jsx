@@ -4,7 +4,7 @@ import * as Ably from "ably";
 import { AblyProvider } from "ably/react";
 import ChatBox from "./Chatbox";
 
-export default function Chat() {
+const ChatContainer = () => {
   const client = new Ably.Realtime.Promise({ authUrl: "/api" });
 
   return (
@@ -12,4 +12,6 @@ export default function Chat() {
       <ChatBox />
     </AblyProvider>
   );
-}
+};
+
+export default ChatContainer;
