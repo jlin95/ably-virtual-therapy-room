@@ -1,7 +1,7 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-const ChatContainer = dynamic(() => import("./components/Chat.jsx"), {
+const MeetingRoom = dynamic(() => import("./components/MeetingRoom.jsx"), {
   ssr: false,
 });
 
@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="title">Chat Room</h1>
-        <ChatContainer />
+        <MeetingRoom />
       </main>
     </div>
   );

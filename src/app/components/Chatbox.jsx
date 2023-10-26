@@ -4,13 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useChannel } from "ably/react";
 import styles from "./ChatBox.module.css";
 
-export default function ChatBox() {
+const ChatBox = ({ user }) => {
   let inputBox = null;
   let messageEnd = null;
 
   const [messageText, setMessageText] = useState("");
   const [receivedMessages, setMessages] = useState([]);
-  const [username, setUsername] = useState("");
   const messageTextIsEmpty = messageText.trim().length === 0;
 
   const { channel, ably } = useChannel("therapy-room-chat", (message) => {
@@ -23,7 +22,7 @@ export default function ChatBox() {
       name: "chat-message",
       data: {
         messageText,
-        senderUsername: username,
+        senderUsername: user,
       },
     });
     setMessageText("");
@@ -33,14 +32,6 @@ export default function ChatBox() {
   const handleFormSubmission = (event) => {
     event.preventDefault();
     sendChatMessage(messageText);
-  };
-
-  const handleUsernameKeyPress = (event) => {
-    if (event.charCode !== 13 || username.trim().length === 0) {
-      return;
-    }
-    setUsername("");
-    event.preventDefault();
   };
 
   const messages = receivedMessages.map((message, index) => {
@@ -59,7 +50,7 @@ export default function ChatBox() {
   useEffect(() => {
     messageEnd.scrollIntoView({ behaviour: "smooth" });
   });
-
+  // https://ably.com/tutorials/presence -- for connected clients, use this an alternative
   return (
     <div className={styles.chatHolder}>
       <div className={styles.chatText}>
@@ -70,14 +61,7 @@ export default function ChatBox() {
           }}
         ></div>
       </div>
-      <textarea
-        ref={(element) => {
-          inputBox = element;
-        }}
-        placeholder="Type your username..."
-        onChange={(e) => setUsername(e.target.value)}
-        onKeyPress={handleUsernameKeyPress}
-      ></textarea>
+
       <form onSubmit={handleFormSubmission} className={styles.form}>
         <textarea
           ref={(element) => {
@@ -98,4 +82,6 @@ export default function ChatBox() {
       </form>
     </div>
   );
-}
+};
+
+export default ChatBox;
