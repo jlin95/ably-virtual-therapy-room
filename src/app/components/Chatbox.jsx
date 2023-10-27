@@ -60,7 +60,6 @@ const ChatBox = ({ user, space, ablyClient }) => {
   };
 
   const messages = receivedMessages.map((message, index) => {
-    console.log(presentMembers);
     const author = message.connectionId === ably.connection.id ? "me" : "other";
     const userData = presentMembers.filter(
       (member) => member.connectionId === message.connectionId
