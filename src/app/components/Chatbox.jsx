@@ -1,11 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useEffect, useState } from "react";
 
 import { useChannel } from "ably/react";
-// import "./ChatBox.css";
-import { SpaceProvider, SpacesProvider, useMembers } from "@ably/spaces/react";
-import Image from "next/image";
+import "./ChatBox.css";
+import { SpaceProvider, SpacesProvider } from "@ably/spaces/react";
 
 const ChatBox = ({ user, space, ablyClient }) => {
   // Message handling
@@ -63,7 +63,9 @@ const ChatBox = ({ user, space, ablyClient }) => {
     return (
       <div key={index}>
         <img
-          src={userData.profileData?.avatar}
+          src={
+            userData.profileData?.avatar || "https://picsum.photos/id/1/200/300"
+          }
           alt={userData.profileData?.username}
           height={20}
           width={20}
