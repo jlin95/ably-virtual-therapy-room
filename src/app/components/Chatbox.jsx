@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useChannel } from "ably/react";
-import "./ChatBox.css";
+// import "./ChatBox.css";
 import { SpaceProvider, SpacesProvider, useMembers } from "@ably/spaces/react";
 import Image from "next/image";
 
