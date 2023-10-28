@@ -3,12 +3,8 @@
 import React, { useEffect, useState } from "react";
 
 import { useChannel } from "ably/react";
-import styles from "./ChatBox.module.css";
-import {
-  SpaceProvider,
-  SpacesProvider,
-  useMembers,
-} from "@ably/spaces/dist/mjs/react";
+import "./ChatBox.css";
+import { SpaceProvider, SpacesProvider, useMembers } from "@ably/spaces/react";
 import Image from "next/image";
 
 const ChatBox = ({ user, space, ablyClient }) => {
@@ -73,7 +69,7 @@ const ChatBox = ({ user, space, ablyClient }) => {
           width={20}
         />
         <span>{message.data.senderUsername}</span>
-        <span className={styles.message} data-author={author}>
+        <span className="message" data-author={author}>
           {message.data.messageText}
         </span>
       </div>
@@ -87,8 +83,8 @@ const ChatBox = ({ user, space, ablyClient }) => {
   return (
     <SpacesProvider client={ablyClient}>
       <SpaceProvider name="therapy-space">
-        <div className={styles.chatHolder}>
-          <div className={styles.chatText}>
+        <div className="chatHolder">
+          <div className="chatText">
             {messages}
             <div
               ref={(element) => {
@@ -97,7 +93,7 @@ const ChatBox = ({ user, space, ablyClient }) => {
             ></div>
           </div>
 
-          <form onSubmit={handleFormSubmission} className={styles.form}>
+          <form onSubmit={handleFormSubmission} className="form">
             <textarea
               ref={(element) => {
                 inputBox = element;
@@ -105,11 +101,11 @@ const ChatBox = ({ user, space, ablyClient }) => {
               value={messageText}
               placeholder="Type a message..."
               onChange={(e) => setMessageText(e.target.value)}
-              className={styles.textarea}
+              className="textarea"
             ></textarea>
             <button
               type="submit"
-              className={styles.button}
+              className="button"
               disabled={messageTextIsEmpty}
             >
               Send
