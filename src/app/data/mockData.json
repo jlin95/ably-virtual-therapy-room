@@ -1,0 +1,99 @@
+{
+    "question": {
+        "type": "group_single",
+        "text": "Where is the headache located?",
+        "items": [
+            {
+                "id": "s_24",
+                "name": "All over the head",
+                "choices": [
+                    {
+                        "id": "present",
+                        "label": "Yes"
+                    },
+                    {
+                        "id": "absent",
+                        "label": "No"
+                    },
+                    {
+                        "id": "unknown",
+                        "label": "Don't know"
+                    }
+                ]
+            },
+            {
+                "id": "s_2566",
+                "name": "In a specific area of the head",
+                "choices": [
+                    {
+                        "id": "present",
+                        "label": "Yes"
+                    },
+                    {
+                        "id": "absent",
+                        "label": "No"
+                    },
+                    {
+                        "id": "unknown",
+                        "label": "Don't know"
+                    }
+                ]
+            },
+            {
+                "id": "s_2567",
+                "name": "I don't know",
+                "choices": [
+                    {
+                        "id": "present",
+                        "label": "Yes"
+                    },
+                    {
+                        "id": "absent",
+                        "label": "No"
+                    },
+                    {
+                        "id": "unknown",
+                        "label": "Don't know"
+                    }
+                ]
+            }
+        ],
+        "extras": {}
+    },
+    "conditions": [
+        {
+            "id": "c_49",
+            "name": "Migraine",
+            "common_name": "Migraine",
+            "probability": 0.5086
+        },
+        {
+            "id": "c_55",
+            "name": "Tension-type headaches",
+            "common_name": "Tension headaches",
+            "probability": 0.116
+        },
+        {
+            "id": "c_975",
+            "name": "Cervical strain",
+            "common_name": "Neck strain",
+            "probability": 0.0782
+        },
+        {
+            "id": "c_39",
+            "name": "Cluster headaches",
+            "common_name": "Cluster headaches",
+            "probability": 0.0704
+        },
+        {
+            "id": "c_562",
+            "name": "Viral meningitis",
+            "common_name": "Viral meningitis",
+            "probability": 0.0652
+        }
+    ],
+    "extras": {},
+    "has_emergency_evidence": true,
+    "should_stop": false,
+    "interview_token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRpZW50RWR1Y2F0aW9uUmV2aXNpb25zIiwidG9rZW5QYXlsb2FkIjp7ImFnZUJ1bmRsZSI6IkFEVUxUIiwicGF0aWVudEVkdWNhdGlvblJldmlzaW9ucyI6eyJjXzU1IjoiNSIsImNfOTc1IjoiOCIsImNfNDkiOiIyIn19LCJpYXQiOjE2OTc3NDg1MzN9.ATL6rhQ58hxvWCOfWb899fL_ppTopkoeszjWDShAQmI"
+}
