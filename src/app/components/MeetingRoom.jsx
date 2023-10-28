@@ -74,6 +74,4 @@ const MeetingRoom = () => {
   );
 };
 
-// initite symptom checker before going to chat room with therapist
-
 export default MeetingRoom;

@@ -53,7 +53,16 @@ const ChatBox = ({ user, space, ablyClient }) => {
   const handleFormSubmission = (event) => {
     event.preventDefault();
     sendChatMessage(messageText);
+    fetchTestData(); // Handle POST of data to backend
   };
+
+  const fetchTestData = async () => {
+    const response = await fetch("/api/hello");
+    const data = await response.json();
+    console.log(data);
+  };
+
+  fetch;
 
   const messages = receivedMessages.map((message, index) => {
     const author = message.connectionId === ably.connection.id ? "me" : "other";
