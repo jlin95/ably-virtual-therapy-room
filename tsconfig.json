@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Chat.jsx", "src/app/components/Chatbox.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/MeetingRoom.jsx", "src/app/components/Chatbox.jsx"],
   "exclude": ["node_modules"]
 }
